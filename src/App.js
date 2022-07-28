@@ -1,28 +1,29 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function App() {
 
-  const [monsters, setMonsters] = useState({
-    monsters: [
-    {
-      name: 'Linda'
-    },
-    {
-      name: 'Frank'
-    },
-    {
-      name: 'Jacky'
-    }
-  ]})
+  const [users, setUsers] = useState([]);
+  const [searchFilter, setSearchFilter] = useState("");
+
+  useEffect( () => {
+    fetch('https://jsonplaceholder.typicode.com/users')
+      .then((reponse) => reponse.json())
+      .then((data) => setUsers(data))
+  }, []);
+
+  const filteredUsers = users.filter( (user) => user.name.toLowerCase().includes(searchFilter.toLowerCase()));
 
   return (
     <>
-      {
-        monsters.monsters.map( (monster, index) => {
-          return <h1 key={index}>{monster.name}</h1>
-          }
-        )
-      }
+      <input className="search-box" type="search" placeholder="Search Monsters" onChange={(e) => setSearchFilter(e.target.value)}/>
+      <div>
+        {
+          filteredUsers?.map( (user, index) => {
+            return <h1 key={index}>{user.name}</h1>
+            }
+          )
+        }
+      </div>
     </>
   );
 }
