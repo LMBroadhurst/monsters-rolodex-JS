@@ -1,3 +1,4 @@
+import "./SearchBox.css";
 
 const SearchBox = ( {onSearchChange, className, placeholder} ) => {
 

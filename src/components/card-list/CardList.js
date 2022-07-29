@@ -1,12 +1,19 @@
+import Card from "../card/Card";
+import "./CardList.css";
 
 const CardList = ( {monsters} ) => {
   return (
     <>
-        {
-            monsters.map( (n, i) => {
-                return <h1 key={i}>{n.name}</h1> 
-            })
-        }
+        <section className="card-list">
+            {
+                monsters.map( (n, i) => {
+                    
+                    return  (
+                        <Card key={i} monster={n} />
+                    )
+                })
+            }
+        </section>
     </>
   )
 }
