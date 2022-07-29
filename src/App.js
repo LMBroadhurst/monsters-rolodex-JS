@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react";
+import CardList from "./components/card-list/CardList";
+import SearchBox from "./components/search-box/SearchBox";
+import "./App.css";
 
 function App() {
 
@@ -13,17 +16,20 @@ function App() {
 
   const filteredUsers = users.filter( (user) => user.name.toLowerCase().includes(searchFilter.toLowerCase()));
 
+  const onSearchChange = (e) => {
+    setSearchFilter(e.target.value);
+  }
+
   return (
     <>
-      <input className="search-box" type="search" placeholder="Search Monsters" onChange={(e) => setSearchFilter(e.target.value)}/>
-      <div>
-        {
-          filteredUsers?.map( (user, index) => {
-            return <h1 key={index}>{user.name}</h1>
-            }
-          )
-        }
-      </div>
+      <SearchBox 
+        onSearchChange={onSearchChange}
+        className="monsters-search-box" 
+        placeholder="Search Monsters"
+      />
+      <CardList 
+        monsters={filteredUsers}
+      />
     </>
   );
 }
